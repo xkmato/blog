@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Redirecting to Substack</title>
+    <script>
+        var countdownSeconds = 7;
+
+        function updateCountdown() {
+            document.getElementById("countdown").innerText = countdownSeconds;
+            if (countdownSeconds === 0) {
+                redirectToSubstack();
+            } else {
+                countdownSeconds--;
+                setTimeout(updateCountdown, 1000);
+            }
+        }
+
+        function redirectToSubstack() {
+            // Extract the hash fragment and convert it into a path
+            var hashFragment = window.location.hash.substring(1); // Remove the '#' character
+            var substackPath = hashFragment ? '/' + hashFragment : '';
+            window.location.href = "https://xkmato.substack.com" + substackPath;
+        }
+
+        window.onload = function() {
+            updateCountdown();
+        };
+    </script>
+</head>
+<body>
+    <h1>Redirecting to Substack...</h1>
+    <p>You will be redirected in <span id="countdown">7</span> seconds. If you are not redirected, <a href="javascript:redirectToSubstack()">click here</a>.</p>
+    <p><strong>Note:</strong> Twitter has a tendency to shadowban links to Substack, which is why we're using this website to redirect you instead of linking directly.</p>
+</body>
+</html>
