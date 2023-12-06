@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Redirecting to Substack</title>
     <script>
-        var countdownSeconds = 7;
+        var countdownSeconds = 10;
 
         function updateCountdown() {
             document.getElementById("countdown").innerText = countdownSeconds;
@@ -23,7 +23,34 @@
             window.location.href = "https://xkmato.substack.com" + substackPath;
         }
 
+        // Function to load JSON data
+        function loadJSON(filename, callback) {
+            var xobj = new XMLHttpRequest();
+            xobj.overrideMimeType("application/json");
+            xobj.open('GET', filename, true);
+            xobj.onreadystatechange = function () {
+                  if (xobj.readyState == 4 && xobj.status == "200") {
+                    callback(JSON.parse(xobj.responseText));
+                  }
+            };
+            xobj.send(null);
+         }
+
+         function init() {
+             loadJSON('episodes.json', function(data) {
+                 var container = document.getElementById('articles-container');
+                 data.forEach(function(article) {
+                     var link = document.createElement('a');
+                     link.href = article.link;
+                     link.textContent = article.title;
+                     container.appendChild(link);
+                     container.appendChild(document.createElement('br'));
+                 });
+             });
+         }
+
         window.onload = function() {
+            init();
             updateCountdown();
         };
     </script>
@@ -32,5 +59,12 @@
     <h1>Redirecting to Substack...</h1>
     <p>You will be redirected in <span id="countdown">7</span> seconds. If you are not redirected, <a href="javascript:redirectToSubstack()">click here</a>.</p>
     <p><strong>Note:</strong> Twitter has a tendency to shadowban links to Substack, which is why we're using this website to redirect you instead of linking directly.</p>
+
+    <br/>
+    <hr/>
+    <h2>Link to other articles</h2>
+    <div id="articles-container">
+        <!-- Articles will be loaded here -->
+    </div>
 </body>
 </html>
