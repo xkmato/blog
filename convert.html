@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Substack URL Converter</title>
+    <script>
+        function convertSubstackURL() {
+            var substackURL = document.getElementById('substackURL').value;
+            var customDomain = 'xkmato.com';
+
+            if (substackURL.includes('.substack.com/p/')) {
+                var path = substackURL.split('.substack.com/p/')[1];
+                var customURL = 'http://' + customDomain + '/#' + path;
+                document.getElementById('result').innerHTML = 'Converted URL: <a href="' + customURL + '" target="_blank">' + customURL + '</a>';
+            } else {
+                document.getElementById('result').textContent = 'Invalid Substack URL';
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Substack URL Converter</h2>
+    <input type="text" id="substackURL" placeholder="Enter Substack URL">
+    <button onclick="convertSubstackURL()">Convert URL</button>
+    <p id="result"></p>
+</body>
+</html>
