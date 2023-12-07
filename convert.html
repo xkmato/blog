@@ -10,7 +10,7 @@
 
             if (substackURL.includes('.substack.com/p/')) {
                 var path = substackURL.split('.substack.com/p/')[1];
-                var customURL = 'http://' + customDomain + '/#' + path;
+                var customURL = 'https://' + customDomain + '/#' + path;
                 document.getElementById('result').innerHTML = 'Converted URL: <a href="' + customURL + '" target="_blank">' + customURL + '</a>';
             } else {
                 document.getElementById('result').textContent = 'Invalid Substack URL';
